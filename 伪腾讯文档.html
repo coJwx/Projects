@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1825122_0qu6wxl2kj69.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f8f8f8;
+        }
+
+        .container-text {
+            width: 800px;
+            height: 1200px;
+            background-color: #fff;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.06);
+            margin: 100px auto;
+            padding: 100px;
+        }
+
+        .container-text #text {
+            width: 600px;
+            height: 1000px;
+            resize: none;
+            outline: none;
+            border: none;
+            font-size: 12pt;
+        }
+
+        /* 顶部工具条 */
+        .toolbar-wrapper {
+            position: fixed;
+            width: 100%;
+            background-color: cadetblue;
+            height: 50px;
+            top: 0px;
+            text-align: center;
+        }
+
+        .toolbar-wrapper .tools {
+
+            height: 50px;
+            width: 80%;
+            /* background-color: coral; */
+            margin: 0 auto;
+            text-align: center;
+            vertical-align: center;
+        }
+
+        .toolbar-wrapper .tools i {
+            line-height: 50px;
+            cursor: pointer;
+            padding: 3px;
+            position: relative;
+        }
+
+
+
+        .toolbar-wrapper .tools i:hover {
+            background-color: rgba(0, 0, 0, .3);
+            border-radius: 5px;
+        }
+
+        input {
+            width: 70px;
+            /* opacity: 0; */
+
+        }
+
+        .iconfont:hover ul {
+            display: block;
+        }
+
+        .iconfont ul {
+            width: 80px;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 1px solid gray;
+            left: -30px;
+            top: 22px;
+            display: none;
+
+        }
+
+        .iconfont ul li {
+            padding: 0;
+            margin: 0;
+            line-height: 16px;
+            list-style: none;
+        }
+
+        .iconfont ul li:hover {
+            background-color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="toolbar-wrapper">
+        <div class="tools">
+
+            <i class="iconfont icon-fontsize" id="fontsize" data-set="fontsize">
+                <ul class="child">
+                    <li data-set="fontSize" data-value="1">1</li>
+                    <li data-set="fontSize" data-value="2">2</li>
+                    <li data-set="fontSize" data-value="3">3</li>
+                    <li data-set="fontSize" data-value="4">4</li>
+                    <li data-set="fontSize" data-value="5">5</li>
+                    <li data-set="fontSize" data-value="6">6</li>
+                    <li data-set="fontSize" data-value="7">7</li>
+                </ul>
+            </i>
+            <i class="iconfont icon-biaoti" id="heading" data-set="heading">
+                <ul class="child">
+                    <li data-set="formatBlock" data-value="<H1>">插入H1</li>
+                    <li data-set="formatBlock" data-value="<H2>">插入H2</li>
+                    <li data-set="formatBlock" data-value="<H3>">插入H3</li>
+                    <li data-set="formatBlock" data-value="<H4>">插入H4</li>
+                    <li data-set="formatBlock" data-value="<H5>">插入H5</li>
+                    <li data-set="formatBlock" data-value="<H6>">插入H6</li>
+                </ul>
+            </i>
+            <i class="iconfont icon-jiacu" id="bold" data-set="bold"></i>
+            <i class="iconfont icon-qingxie1" id="italic" data-set="italic"></i>
+            <i class="iconfont icon-Underline" id="underline" data-set="underline"></i>
+            <i class="iconfont icon-shanchuxian" id="strikethrough" data-set="strikethrough"></i>
+            <i class="iconfont icon-youxuliebiao" id="insertorderedlist" data-set="insertorderedlist"></i>
+            <i class="iconfont icon-wuxuliebiao" id="insertunorderedlist" data-set="insertunorderedlist"></i>
+            <i class="iconfont icon-beijingyanse"></i>
+            <i class="iconfont icon-zitiyanse"></i>
+            <input type="file" id="insertImage" data-set="insertImage"></input>
+
+            <strong></strong>
+        </div>
+    </div>
+    <div class="container-text">
+
+        <!-- <textarea id="text" cols="30" rows="10"></textarea> -->
+        <iframe id="text" frameborder="0"></iframe>
+        <span style="font-weight: 800;">文本内容</span>
+    </div>
+    <script>
+        /*
+            NOTE
+            1. 需要一个框，用于输入文字，并且这个框可以支持html标签   -> iframe实现 参考文章：https://www.cnblogs.com/xiangxs/p/5120574.html
+            2. 选中文本修改其样式 http://16bing.com/2017/04/18/ref-iframe/
+        */
+        // TAG 为iframe开启可编辑
+        var edit = document.getElementById("text").contentWindow;
+        edit.document.designMode = "On";
+        edit.document.contentEditable = "ture";
+        // TAG 获取单个设置的标签
+        var bold = document.getElementById('bold')
+        var italic = document.getElementById('italic')
+        var underline = document.getElementById('underline')
+        var strikethrough = document.getElementById('strikethrough')
+        var insertorderedlist = document.getElementById('insertorderedlist')
+        var insertunorderedlist = document.getElementById('insertunorderedlist')
+
+
+        // TAG 需要第二个参数的标签
+        var insertImage = document.getElementById('insertImage')
+        // TAG 设置字体大小
+        var Fontsize = document.getElementById('fontsize')
+        var setFontSize = Fontsize.getElementsByClassName('child')[0]
+        // TAG 设置标题标签
+        var heading = document.getElementById('heading')
+        var heading_child = heading.getElementsByClassName('child')[0]
+
+        // TAG 为单个设置绑定事件
+        bold.addEventListener('click', singleSet)
+        italic.addEventListener('click', singleSet)
+        underline.addEventListener('click', singleSet)
+        strikethrough.addEventListener('click', singleSet)
+        insertorderedlist.addEventListener('click', singleSet)
+        insertunorderedlist.addEventListener('click', singleSet)
+        // 需要第二个参数的设置绑定事件
+        insertImage.addEventListener('change', insertimg) //TODO 未完成
+        // TAG 设置字体大小
+        setFontSize.addEventListener('click', function (e) {
+            var target = e.target
+            if (target.nodeName === 'LI') {
+                edit.document.execCommand(target.getAttribute('data-set'), true, target.getAttribute('data-value'));
+            }
+        })
+        // TAG 插入标题
+        heading_child.addEventListener('click', function (e) {
+            var target = e.target
+
+            if (target.nodeName === 'LI') {
+                console.log(1)
+                edit.document.execCommand(target.getAttribute('data-set'), true, target.getAttribute('data-value'));
+            }
+        })
+        // TAG 定义单参数设置函数 
+        // 获取标签的data-set判断执行什么操作
+        function singleSet() {
+            var action = this.getAttribute('data-set')
+            edit.document.execCommand(action, false, null);
+        }
+        // TAG 定义需要第二个参数的设置函数
+        function doubleSet(v) {
+            edit.document.execCommand("insertImage", true, 'https://ae01.alicdn.com/kf/H355adba4500642949f3d43d001b83ac3b.jpg');
+        }
+        // TODO 插入图片 (未完成)
+        function insertimg() {
+            // TAG 测试内容
+            // edit.document.execCommand("insertImage", true, realPath);
+            // image = evt.target.result;
+            var _URL = window.URL || window.webkitURL;
+            var file, img;
+            if ((file = this.files[0])) {
+                img = new Image();
+                img.onload = function () {
+                    console.log(this.src)
+                };
+                var a = img.src = _URL.createObjectURL(file);
+                console.log(a)
+                edit.document.execCommand("insertImage", true, a);
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>

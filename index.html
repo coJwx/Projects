@@ -1,367 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>模仿快手官网小demo</title>
-    <style>
-        body {
-
-            background-color: #000;
-            overflow: hidden;
-            color: white;
-        }
-
-        li,
-        ol,
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        a {
-            background-color: rgba(0, 0, 0, 0);
-
-            text-decoration: none;
-            color: white;
-        }
-
-        @font-face {
-            font-family: "iconfont";
-            src: url('iconfont.eot?t=1588408129484');
-            /* IE9 */
-            src: url('iconfont.eot?t=1588408129484#iefix') format('embedded-opentype'),
-                /* IE6-IE8 */
-                url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAMIAAsAAAAABrQAAAK6AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCfgqBIIEcATYCJAMMCwgABCAFhG0HOxvfBRHVk1dkf4Q4xnYIzQxJ6dLPWNbsF8rRCZXgfHF7If9lWxgy06CkoBVIAAAAAIAgwjG9T1JEt6m2Q8lkp6ZQEcopJOHRzhMrliiBJLnCBhw0hDwNgDdAgEz8AOiJHZ4qfQfYyiwXslphAw54ogkzW1Yf7P2fs6qRURGmKGfRjm0xaTn/pRngnRMkjLu7PH2KJmjZFty1sTBaoF59Ai7jihawmas7nT9VuY3wM2TP57mc3gQ6O5ofKKc1cYxt9fwwwDigAMdatIVLKOOG6eULGsjNEMBJqmxSU2csiEH3EkB6u/oSzCUwGFa2I1hrJloL5Viwqzk1VsLvy+cSFBaNHtjQrhvYyy/b2uRnk0+QBAFOtwAayAYGpLG20AAI4zTOQohhX60EXkr+v/BdyF55BfLX2Uo3AOnQpu7I4OzcmgFOQQGgAbDmS+kgB7HhgwUJh9s/C3uj6dlymvhaJt1jBwsZj+acvxvLqn3XRfz3GXiN3sxnzjiyKOxTpPR77t+KNNA/z9APR43mY86kmWathNY5Gzpow3nLvwr0q00VAgh0r444xP3AAHD/mgNt/9KA/SRBgR8WsE2LWZh0XhsA6ZwehjThHj0V4MQJJHUk6Hm8M9I7B4I9ZxoRspHCobETIw2bDQsucmDFTjmcZKmf7iJkGBDjADJNAQh+W1B4OYDG75I07BMsRH3Dij/gpFFY0EUitpwkGCtmkNygTLkj69ZJVL3F/NTEkjWFwhGlL9PgO16xvMIOZY4h/TkPVAlIuIUl2A6bhsEIV5iqU6iaqetS3Y2clFtrQoKxYgbJDcqUO/Lr66T0+S3mpyaWFlWueUTpy+bBd7we5Mre9VLdyzX9OQ9UCUi4hSVoh03DYOrbVZiqU4zImalralFfu7O+s/2+DYATvYIWJVoM9MdnO+NLN4jiJ2NZAAA=') format('woff2'),
-                url('iconfont.woff?t=1588408129484') format('woff'),
-                url('iconfont.ttf?t=1588408129484') format('truetype'),
-                /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
-                url('iconfont.svg?t=1588408129484#iconfont') format('svg');
-            /* iOS 4.1- */
-        }
-
-        .iconfont {
-            font-family: "iconfont" !important;
-            font-size: 16px;
-            font-style: normal;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .icon-nav-down:before {
-            content: "\e6b9";
-        }
-
-        .icon-nav-up:before {
-            content: "\e6ba";
-        }
-
-
-        .video-wrap .video {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .header {
-            position: relative;
-            z-index: 2;
-            padding: 29px 5.875% 29px 7.625%;
-        }
-
-        .header .logo {
-            float: left;
-            width: 7.6875%;
-            height: 3.3125%;
-            cursor: pointer;
-        }
-
-        .header .logo img {
-            width: 100%;
-        }
-
-        .header .list,
-        .header .volumn {
-            float: right;
-        }
-
-        .header .list {
-            padding: 0px 100px 0;
-        }
-
-
-
-        .header .list .item:first-child {
-            margin-left: 0;
-        }
-
-        .header .list .item {
-            position: relative;
-            display: inline-block;
-            margin-left: 50px;
-        }
-
-        .header .list .item .nav {
-            position: relative;
-            display: inline-block;
-            height: 20px;
-            overflow: visible;
-            padding-bottom: 6px;
-            color: #fff;
-            font-size: 14px;
-            line-height: 20px;
-            text-shadow: 0 2px 3px rgba(0, 0, 0, .5);
-            transition: border-color .3s ease-in;
-        }
-
-        .header .list .down-item {
-            position: absolute;
-            display: none;
-            width: 120px;
-            left: 0;
-            top: 26px;
-            border-radius: 2px 2px 6px 6px;
-            background-color: hsla(0, 0%, 100%, .3);
-        }
-
-        .header .list .item .nav {
-            font-size: 16px;
-            line-height: 22px;
-        }
-
-        .header .list .sub-menu .icon-nav {
-            display: inline-block;
-
-        }
-
-        .header .list .sub-menu .icon-nav::before {
-            content: "\e6b9";
-        }
-
-        .header .list .item .iconfont {
-            position: relative;
-            left: -1px;
-            color: #fff;
-            font-size: 12px;
-        }
-
-        .header .sub-menu:hover .down-item {
-            display: block;
-        }
-
-        .header .sub-menu:hover .icon-nav::before {
-            content: "\e6ba";
-        }
-
-        .header .list .down-item li {
-            line-height: 50px;
-            text-align: center;
-
-        }
-
-        .header .list .down-item li a {
-            color: white;
-            transition: all .5s;
-        }
-
-        .header .list .down-item li:first-child {
-            padding-top: 10px;
-        }
-
-        .header .list .down-item li:last-child {
-            padding-bottom: 10px;
-        }
-
-        .header .list .down-item li:hover>a {
-            color: #ff5000;
-            text-shadow: none;
-        }
-
-        /* 主区域部分 */
-        .main {
-            position: absolute;
-            left: 7.625%;
-            top: 36.333%;
-        }
-
-        .main .kwai-slogan {
-            margin-bottom: 18px;
-            font-weight: 500;
-            font-size: 50px;
-            color: #fff;
-            text-align: left;
-            line-height: 72px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, .5);
-        }
-
-        .main .qr-code {
-            width: 137px;
-            width: 8.5625vw;
-            margin: 0 2.1875vw 0 0;
-            text-align: center;
-        }
-
-        .main .btn-wrap,
-        .main .qr-code {
-            display: inline-block;
-            vertical-align: top;
-        }
-
-        .main .qr-code .image {
-            width: 100%;
-            height: 140px;
-            height: 8.75vw;
-            margin-bottom: 3px;
-            border-radius: 6px;
-        }
-
-        .main .qr-code .text {
-            font-size: 12px;
-            line-height: 17px;
-            color: #d8d8d8;
-        }
-
-        .main .btn-wrap .btn {
-            display: block;
-            width: 190px;
-            height: 58px;
-            width: 11.875vw;
-            height: 3.625vw;
-            background: none no-repeat 50%/contain;
-            border-radius: 30px;
-            cursor: pointer;
-            -webkit-transition: background-image .3s;
-            -o-transition: background-image .3s;
-            transition: background-image .3s;
-            color: #fff;
-            font-size: 28px;
-            line-height: 58px;
-        }
-
-        .main .btn-wrap .ios {
-            background-image: url(https://static.yximgs.com/udata/pkg/fe/ios_normal.png);
-            margin-bottom: 28px;
-        }
-
-        .main .btn-wrap .android {
-            background-image: url(https://static.yximgs.com/udata/pkg/fe/android_normal.png);
-        }
-
-        /* 页脚 */
-        .footer {
-            position: absolute;
-            bottom: 0;
-
-            width: 100%;
-            height: 87px;
-            padding: 0 0 23px;
-            text-align: center;
-
-        }
-
-        .footer .com-footer {
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .footer .com-footer .list a {
-            margin-right: 30px;
-            color: white;
-        }
-    </style>
+    <title>Demo合集</title>
 </head>
-
 <body>
-    <div class="video-wrap">
-        <video id="video" class="video" loop="" muted="" autoplay="">
-            <source src="https://ali.static.yximgs.com/udata/pkg/fe/kwai_video.c8e339ab.mp4" type="video/mp4">
-            抱歉，您的浏览器不支持内嵌视频</video>
-    </div>
-    <div class="header">
-        <a href="#" class="logo"><img src="https://ali.static.yximgs.com/udata/pkg/fe/kwai_home_logo.png" alt="快手"> </a>
-        <ul class="list">
-            <li class="item"><a href="/" class="nav checked" title="首页">首页</a> </li>
-            <li class="item sub-menu"><a href="https://live.kuaishou.com" class="nav " title="快手直播"
-                    target="_blank">快手直播</a>
-                <i class="iconfont icon-nav"></i>
-                <ul class="down-item">
-                    <li><a href="https://live.kuaishou.com" target="_blank">快手直播</a></li>
-                    <li><a href="https://live.kuaishou.com/live-partner" target="_blank">直播伴侣</a></li>
-                </ul>
-            </li>
-            <li class="item sub-menu"><a href="javascript:void(0);" class="nav " title="系列产品">系列产品</a>
-                <i class="iconfont icon-nav"></i>
-                <ul class="down-item">
-                    <li><a href="/kuaiying">快影</a></li>
-                    <li><a href="http://www.acfun.cn/" target="_blank" rel="nofollow">AcFun</a></li>
-                    <li><a href="https://1tian.kuaishou.com/?f=www" target="_blank">一甜相机</a></li>
-                </ul>
-            </li>
-            <li class="item"><a href="https://music.kuaishou.com" class="nav " title="音乐人" target="_blank">音乐人</a> </li>
-            <li class="item sub-menu"><a href="javascript:void(0);" class="nav " title="创作者服务">创作者服务</a> <i
-                    class="iconfont icon-nav"></i>
-                <ul class="down-item">
-                    <li><a href="/verify/" target="_blank">用户认证</a></li>
-                    <li><a href="https://cp.kuaishou.com/article/publish/video?origin=www.kuaishou.com"
-                            target="_blank">上传视频</a>
-                    </li>
-                    <li><a href="https://cp.kuaishou.com/" target="_blank">创作者服务平台</a></li>
-                </ul>
-            </li>
-            <li class="item"><a href="https://pay.ssl.kuaishou.com/pay" class="nav " title="快币充值">快币充值</a> </li>
-            <li class="item sub-menu"><a href="/about/contact" class="nav " title="联系我们">联系我们</a> <i
-                    class="iconfont icon-nav"></i>
-                <ul class="down-item">
-                    <li><a href="https://e.kuaishou.com/" target="_blank" rel="nofollow">商务合作</a></li>
-                    <li><a href="/about/contact">联系我们</a></li>
-                    <li><a href="/about/">关于我们</a></li>
-                    <li><a href="https://www.kwaishop.com/" target="_blank" rel="nofollow">快手电商</a></li>
-                    <li><a href="https://mcn.kuaishou.com/" target="_blank" rel="nofollow">机构入驻</a></li>
-                    <li><a href="https://zhaopin.kuaishou.com/" target="_blank" rel="nofollow">加入我们</a></li>
-                    <li><a href="/help/report">违规举报</a></li>
-                </ul>
-            </li>
-            <li class="item sub-menu"><a href="javascript:void(0);" class="nav " title="社会责任">社会责任</a> <i
-                    class="iconfont icon-nav"></i>
-                <ul class="down-item">
-                    <li><a href="/csr/" target="_blank">快手行动</a></li>
-                    <li><a href="/committee/">专家委员会</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <div class="main">
-        <h1 class="kwai-slogan">快手，<br>记录世界&nbsp;记录你</h1>
-        <div class="qr-code"><img src="https://ali.static.yximgs.com/udata/pkg/fe/kwai_qrcode.png" alt="二维码"
-                class="image">
-            <span class="text">扫码下载&nbsp;快手</span></div>
-        <div class="btn-wrap"> <a href="https://apps.apple.com/cn/app/快手/id440948110" class="btn ios"></a> <a
-                href="https://m.kuaishou.com/download/kwai?platform=android&amp;f=www_home" class="btn android"></a>
-        </div>
-    </div>
-    <div class="footer">
-        <div class="com-footer">
-            <div class="list"><a href="//www.kuaishou.com/about/" class="item" title="关于快手">关于快手</a> <a
-                    href="//www.kuaishou.com/help/feedback" class="item" title="快手帮助中心">帮助中心</a> <a
-                    href="https://zhaopin.kuaishou.com/" target="_blank" class="item" title="快手招聘">加入我们</a> <a
-                    href="//www.kuaishou.com/about/contact" class="item" title="联系快手">联系我们</a> <a
-                    href="//www.kuaishou.com/about/policy" target="_blank" class="item">法律声明</a></div>
-            <p class="info"><span>www.kuaishou.com <span id="this-year">2020</span></span> <span>@ All rights
-                    Reserved</span>
-                <span>京网文（2017）2551-280号</span>
-                <span>京ICP备07035647号-4</span>
-                <a target="_blank" rel="nofollow"
-                    href="https://zzlz.gsxt.gov.cn/businessCheck/verifKey.do?showType=p&amp;serial=11000020190617100242000003563691-SAIC_SHOW_10002020190621144025721&amp;signData=MEQCIP0/+UH+ntaa/CsUaIa29DiFE/5haWZtEr21SBp7ZH3FAiAaZbzsn7SkDMMICyfCAsZly9BxiPl94sRConkJ4tEgzw=="><span
-                        class="license-icon"></span> </a> <a class="police-link" target="_blank" rel="nofollow"
-                    href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802020421">京公网安备
-                    11010802020421号</a>
-            </p>
-        </div>
-    </div>
+    <article class="post-content" id="article-container">
+        <h1>Demo合集</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align:center">时间</th>
+                    <th style="text-align:center">演示地址</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align:center">2021-05-19</td>
+                    <td style="text-align:center"><a target="_blank" rel="noopener"
+                            href="./伪腾讯文档.html">伪腾讯文档</a></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">2021-05-11</td>
+                    <td style="text-align:center"><a target="_blank" rel="noopener"
+                            href="./模仿Excel表格.html">模仿Excel表格</a></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">2021-05-07</td>
+                    <td style="text-align:center"><a target="_blank" rel="noopener"
+                            href="./下载按钮动态效果.html">下载按钮动态效果</a></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">2021-05-03</td>
+                    <td style="text-align:center"><a target="_blank" rel="noopener"
+                            href="./动态时间显示.html">动态显示时间</a></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">2021-05-01</td>
+                    <td style="text-align:center"><a target="_blank" rel="noopener"
+                            href="./星级评分.html">星级评分</a></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">2021-04-19</td>
+                    <td style="text-align:center"><a target="_blank" rel="noopener"
+                            href="./购物车.html">购物车</a></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">2021-04-15</td>
+                    <td style="text-align:center"><a target="_blank" rel="noopener"
+                            href="./模拟快手首页.html">模拟快手首页</a></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">2021-03-28</td>
+                    <td style="text-align:center"><a target="_blank" rel="noopener"
+                            href="./片刻网首页.html">片刻网首页</a></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">2021-03-23</td>
+                    <td style="text-align:center"><a target="_blank" rel="noopener"   
+                            href="./小米轮播图.html">小米轮播图</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </article>
 </body>
-
 </html>
