@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>小米轮播图示例</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 1226px;
+        height: 460px;
+        background: lightcyan;
+        margin: 100px auto;
+        position: relative;
+      }
+
+      .container .imgList {
+        width: 100%;
+        position: relative;
+      }
+
+      .container .imgList img {
+        display: block;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transition: opacity 1s;
+        z-index: 0;
+        opacity: 0;
+      }
+
+      .slide {
+        width: 41px;
+        height: 69px;
+        background-image: url("https://i1.mifile.cn/f/i/2014/cn/icon/icon-slides.png");
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 99;
+        display: none;
+        cursor: pointer;
+      }
+      /* 
+    使用focus伪类模拟点击事件的效果
+    1. html结构：必须有input 和 label 且input的id与label的for相匹配
+    2. css样式：input:focus
+     */
+
+      #slide5:checked ~ .imgList img:nth-of-type(5),
+      #slide4:checked ~ .imgList img:nth-of-type(4),
+      #slide3:checked ~ .imgList img:nth-of-type(3),
+      #slide2:checked ~ .imgList img:nth-of-type(2),
+      #slide1:checked ~ .imgList img:nth-of-type(1) {
+        z-index: 1;
+        opacity: 1;
+      }
+
+      /* 
+    第五张图片时 
+      左按钮应该去4 右按钮去1 
+    第四张图片时
+      左按钮应该去3 右按钮去5
+    第三张图片时
+      左按钮应该去2 右按钮去4
+    第二张图片时
+      左按钮应该去1 右按钮去3
+    第一张图片时
+      左按钮应该去5 右按钮去2
+    */
+      #slide5:checked ~ label:nth-of-type(1),
+      #slide4:checked ~ label:nth-of-type(5),
+      #slide3:checked ~ label:nth-of-type(4),
+      #slide2:checked ~ label:nth-of-type(3),
+      #slide1:checked ~ label:nth-of-type(2) {
+        display: block;
+        right: 0;
+        background-position: -125px;
+      }
+      /* 鼠标悬停改变雪碧图位置 */
+      #slide5:checked ~ label:nth-of-type(1):hover,
+      #slide4:checked ~ label:nth-of-type(5):hover,
+      #slide3:checked ~ label:nth-of-type(4):hover,
+      #slide2:checked ~ label:nth-of-type(3):hover,
+      #slide1:checked ~ label:nth-of-type(2):hover {
+        background-position: -41px;
+      }
+      #slide5:checked ~ label:nth-of-type(4),
+      #slide4:checked ~ label:nth-of-type(3),
+      #slide3:checked ~ label:nth-of-type(2),
+      #slide2:checked ~ label:nth-of-type(1),
+      #slide1:checked ~ label:nth-of-type(5) {
+        display: block;
+        left: 0;
+        background-position: -84px;
+      }
+      /* 鼠标悬停改变雪碧图位置 */
+      #slide5:checked ~ label:nth-of-type(4):hover,
+      #slide4:checked ~ label:nth-of-type(3):hover,
+      #slide3:checked ~ label:nth-of-type(2):hover,
+      #slide2:checked ~ label:nth-of-type(1):hover,
+      #slide1:checked ~ label:nth-of-type(5):hover {
+        background-position: 0px;
+      }
+      input {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 视觉容器 -->
+    <div class="container">
+      <!-- 左右切换菜单 -->
+      <input type="radio" name="slide" id="slide1" checked />
+      <input type="radio" name="slide" id="slide2" />
+      <input type="radio" name="slide" id="slide3" />
+      <input type="radio" name="slide" id="slide4" />
+      <input type="radio" name="slide" id="slide5" />
+      <label for="slide1" class="slide slide1"></label>
+      <label for="slide2" class="slide slide2"></label>
+      <label for="slide3" class="slide slide3"></label>
+      <label for="slide4" class="slide slide4"></label>
+      <label for="slide5" class="slide slide5"></label>
+      <!-- 图片列表 -->
+      <div class="imgList">
+        <img
+          src="https://ae01.alicdn.com/kf/U1a6b653720d845c682f97d2fcf75c22f6.png"
+        />
+        <img
+          src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/755aca9487082e7698e16f17cfb70839.jpg"
+        />
+        <img
+          src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e5b37cdb85b3b93b5938cc508a10c906.jpg"
+        />
+        <img
+          src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e909ef0e50960f61a730380013bc960a.jpg"
+        />
+        <img
+          src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6bd4174b8c5aad67a64864a5716ad152.jpg"
+        />
+      </div>
+      <!-- 轮播图的导航  已废-->
+      <div class="nav"></div>
+    </div>
+  </body>
+</html>

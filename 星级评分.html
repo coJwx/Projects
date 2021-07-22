@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星星评级动态效果</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css'>
+
+    <style>
+        body {
+            background: #222;
+        }
+
+        .rating {
+            font-family: "Ionicons";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
+        .rating i {
+            position: relative;
+            margin-right: 6px;
+            font-size: 5em;
+            color: gold;
+            cursor: pointer;
+        }
+
+        .rating i:hover::before {
+            content: "\f384";
+            opacity: 1;
+            transition: 0.5s;
+            transform: scale(1.2);
+        }
+
+        .active::before {
+            content: "\f384";
+            opacity: 1;
+            transition: 0.5s;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rating">
+        <i class="icon ion-md-star-outline"></i>
+        <i class="icon ion-md-star-outline"></i>
+        <i class="icon ion-md-star-outline"></i>
+        <i class="icon ion-md-star-outline"></i>
+        <i class="icon ion-md-star-outline"></i>
+    </div>
+    <script>
+        var rating = document.getElementsByClassName('rating')[0]
+        var icon = document.getElementsByClassName('icon')
+        var iconList = []
+        for (var i = 0; i < icon.length; i++) {
+            iconList.push(icon[i])
+        }
+        // 没有点过
+        var flag = true
+        document.addEventListener('click', function (event) {
+            var target = event.target
+            if (target.nodeName === 'I') {
+                var num = iconList.indexOf(target)
+                if (flag) {
+                    for (var j = 0; j <= num; j++) {
+                        icon[j].className += " active"
+                    }
+                    flag = false
+                } else {
+                    // 判断加还是取消
+                    if (icon[num].className.indexOf(' active') === -1) {
+                        // 没有找到,则添加
+                        for (var m = num; m >= 0; m--) {
+                            if (icon[m].className.indexOf(' active') === -1) {
+                                icon[m].className += " active"
+                            }
+                        }
+                    } else {
+                        // 否则,进行删星星
+                        for (var i = num; i <= icon.length; i++) {
+                            icon[i].className = icon[i].className.replace(' active', '')
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

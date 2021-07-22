@@ -1,0 +1,960 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>片刻网首页布局</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fafafa;
+            background-image: url("https://ae01.alicdn.com/kf/H2f423b19444c4797b5f0c76cf222ccbde.png");
+            background-repeat: repeat-x;
+        }
+
+        body a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .head {
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .head .container {
+            width: 1200px;
+            height: 90px;
+            margin: 0 auto;
+        }
+
+        .head .container .logo {
+            width: 80px;
+            height: 90px;
+        }
+
+        .head .container .nav {
+            width: 420px;
+            height: 90px;
+        }
+
+        .head .container .login-container {
+            width: 240px;
+            height: 90px;
+            margin-left: 1000px;
+            /* 开启相对定位是因为子级需要绝对定位 */
+            position: relative;
+        }
+
+        .head .container .nav {
+            margin-left: 180px;
+            padding: 0;
+            list-style: none;
+            margin-bottom: 0;
+        }
+
+        .head .container .login-container,
+        .head .container .nav {
+            margin-top: -90px;
+        }
+
+        /* 顶部导航栏logo */
+        .head .container .logo a {
+            display: block;
+            width: 80px;
+            height: 90px;
+            padding-top: 26px;
+        }
+
+        .head .container .logo img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* 顶部导航中的菜单 */
+        /* 为每一个列表内容设置样式 */
+        .head .container .nav li {
+            float: left;
+            width: 84px;
+            height: 90px;
+            text-align: center;
+            line-height: 90px;
+            cursor: pointer;
+        }
+
+        /* 选择没有被选中的标签 */
+        .head .container .nav li:not(.active) {
+            transition: all 0.2s;
+        }
+
+        /* 没有被选中的标签鼠标悬停时的效果 */
+        .head .container .nav li:not(.active):hover {
+            font-size: 120%;
+            background-color: #fbfbfb;
+        }
+
+        /* 标签被选中后 */
+        .nav li.active {
+            background-color: #fbfbfb;
+            font-weight: bolder;
+            box-shadow: inset 0 -3px 0 0 #333;
+        }
+
+        /* 顶部导航中的登录与注册 */
+        .head .container .login-container div {
+            /* 通过绝对定位实现上下居中 */
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .head .container .login-container .write {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid #57ad68;
+        }
+
+        .head .container .login-container .write div {
+            width: 38px;
+            height: 38px;
+            background-color: #57ad68;
+            border-radius: 50%;
+            margin-left: 2px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .head .container .login-container .write div:hover {
+            box-shadow: inset 0 0 10px #fff;
+        }
+
+        .head .container .login-container .write div img {
+            width: 20px;
+            height: auto;
+            margin-top: 9px;
+            margin-left: 10px;
+        }
+
+        .head .container .login-container .login {
+            width: 126px;
+            height: 46px;
+            left: 74px;
+            border-radius: 23px;
+            color: #57ad68;
+            border: 1px solid #57ad68;
+            text-align: center;
+            line-height: 44px;
+            font-size: 14px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .head .container .login-container .login:hover {
+            background-color: #57ad68;
+            color: #fff;
+        }
+
+
+
+        .foot {
+            height: 118px;
+            background-color: #1a1818;
+            position: relative;
+            top: 60px;
+        }
+
+        .foot .container {
+            width: 1200px;
+            margin: 0 auto;
+            /* overflow: hidden; */
+        }
+
+        .foot .desc {
+            float: left;
+            width: 600px;
+            height: 118px;
+        }
+
+        .foot .desc img {
+            width: 100px;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            display: block;
+            float: left;
+        }
+
+        .foot .desc .link {
+            margin-left: 15px;
+            float: left;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .foot .desc .link p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .foot .desc .link a {
+            color: #666;
+            margin-right: 15px;
+        }
+
+        .foot .desc .link p:first-child {
+            margin: 0 0 10px;
+        }
+
+        .foot .desc .link p:not(:first-child) {
+            margin: 0 0;
+        }
+
+        .foot .icon {
+            float: right;
+            width: 400px;
+            height: 118px;
+        }
+
+        .foot .icon div {
+            width: 44px;
+            height: 44px;
+            float: left;
+            margin-right: 20px;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            background-size: 44px;
+            cursor: pointer;
+        }
+
+        .foot .icon .app {
+            background-image: url("https://ae01.alicdn.com/kf/Hdb2537c866c14c80bb974c6809c14eb1v.png");
+        }
+
+        .foot .icon .sina {
+            background-image: url("https://ae01.alicdn.com/kf/H25ad137d37a947599a524d352d9571cd3.png");
+        }
+
+        .foot .icon .wechat {
+            background-image: url("https://ae01.alicdn.com/kf/H25964390c48f45f88935d3c49779c613G.png");
+            position: relative;
+        }
+
+        .foot .icon .safe {
+            width: 86px;
+            background-image: url("https://ae01.alicdn.com/kf/Hfa5e90b3a2e647b5992383eb2212a578C.png");
+            float: right;
+            background-size: 86px 44px;
+        }
+
+        .foot .icon .app:hover {
+            background-image: url("https://ae01.alicdn.com/kf/Hc6a22ad317c54dd0b6c70932d90e6f7dZ.png");
+        }
+
+        .foot .icon .sina:hover {
+            background-image: url("https://ae01.alicdn.com/kf/H53a6e41da9ad40ceb5f5ffbbd8f36a94D.png");
+        }
+
+        .foot .icon .wechat:hover .qr {
+            transform: scale(1);
+        }
+
+        .foot .icon .wechat:hover {
+            background-image: url("https://ae01.alicdn.com/kf/H3f207c2c313649eb834fc918c9b46e20C.png");
+        }
+
+        .foot .icon .wechat .qr {
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border: 0px solid black;
+            top: -266px;
+            left: -92px;
+            background-color: white;
+            box-shadow: inset 0 0 2px black;
+            transform: scale(0);
+            transition: all 0.3s;
+        }
+
+        .foot .icon .wechat .qr img {
+            width: 200px;
+            height: auto;
+            position: absolute;
+            left: 15px;
+            top: 15px;
+        }
+
+        .foot .icon .wechat .qr div {
+            width: 0;
+            height: 0;
+            border-width: 20px;
+
+            border-style: solid;
+            border-color: white transparent transparent transparent;
+            /* 左边为黑色 */
+            position: absolute;
+            left: 93px;
+            top: 248px;
+        }
+
+        .login-focus {
+            width: 126px;
+            height: 46px;
+            border-radius: 23px;
+            position: absolute;
+            top: 22px;
+            left: 1418px;
+            z-index: 2;
+            cursor: pointer;
+            border: 1px solid #57ad68;
+            text-align: center;
+            line-height: 44px;
+            font-size: 14px;
+            font-weight: 300;
+            color: #57ad68;
+            outline: none;
+            background: white;
+        }
+
+        .login-focus:hover {
+            background-color: #57ad68;
+            color: #fff;
+        }
+
+        .login-focus:focus~.login-dialog {
+            transform: scale(1);
+        }
+
+        .login-dialog {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 5;
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: scale(0);
+            transition: all 0.2s;
+        }
+
+        .login-dialog .close-login-box {
+            background-image: url(https://ae01.alicdn.com/kf/H757f3e69cfef448e96b14e96c1bb8faeS.png);
+            background-size: 20px;
+            background-position: top right;
+            background-repeat: no-repeat;
+            height: 20px;
+            margin-right: 25px;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+
+        /* 中间内容区 */
+        .content>div {
+            width: 960px;
+            margin: 45px auto;
+        }
+
+        /* 顶部轮播图 */
+        .content .slide {
+            width: 1130px;
+            height: 400px;
+            margin: 100px auto 0;
+            position: relative;
+        }
+
+        .slide input {
+            display: none;
+        }
+
+        .img-list {
+            width: 960px;
+            height: 400px;
+
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .img-list img {
+            display: block;
+            width: 493px;
+            height: 289px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.6s linear;
+        }
+
+        .change-btn {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .change-btn label {
+            height: 48px;
+            cursor: pointer;
+            background-repeat: no-repeat;
+            background-size: 24px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* 显示在左边的切换按钮 */
+
+        #slide1:checked~.change-btn label:nth-child(2),
+        #slide2:checked~.change-btn label:nth-child(3),
+        #slide3:checked~.change-btn label:nth-child(1) {
+            background-image: url(https://ae01.alicdn.com/kf/H44c3bc284cbe433ebf6dd85ba5d64285K.png);
+            width: 24px;
+        }
+
+        /* 显示在右边的切换按钮 */
+        #slide1:checked~.change-btn label:nth-child(3),
+        #slide2:checked~.change-btn label:nth-child(1),
+        #slide3:checked~.change-btn label:nth-child(2) {
+            background-image: url(https://ae01.alicdn.com/kf/Ha25bd5de08d04584b43182b22a7ec9bbK.png);
+            right: 0;
+            width: 24px;
+        }
+
+        .nav-line {
+            width: 108px;
+            height: 1px;
+            background-color: #e8e8e8;
+            position: absolute;
+            bottom: 0;
+            right: 85px;
+        }
+
+        .nav-line label {
+            width: 36px;
+            height: 1px;
+            float: left;
+            cursor: pointer;
+        }
+
+        /* 轮播图的导航器 */
+        #slide1:checked~.nav-line label:nth-child(1),
+        #slide2:checked~.nav-line label:nth-child(2),
+        #slide3:checked~.nav-line label:nth-child(3) {
+            background-color: #333;
+        }
+
+        /* 动态交互 */
+        /* 显示在中间的图片 */
+        #slide1:checked~.img-list img:nth-child(1),
+        #slide2:checked~.img-list img:nth-child(2),
+        #slide3:checked~.img-list img:nth-child(3) {
+            width: 660px;
+            height: 375px;
+            border-left: 10px solid #fafafa;
+            border-right: 10px solid #fafafa;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        /* 显示在右边的图片 */
+        #slide1:checked~.img-list img:nth-child(2),
+        #slide2:checked~.img-list img:nth-child(3),
+        #slide3:checked~.img-list img:nth-child(1) {
+            left: 467px;
+            z-index: 0;
+        }
+
+        /* 显示左边的图片 */
+        #slide1:checked~.img-list img:nth-child(3),
+        #slide2:checked~.img-list img:nth-child(1),
+        #slide3:checked~.img-list img:nth-child(2) {
+            left: 0;
+            z-index: 0;
+        }
+
+        /* 分类 */
+        /* 标题 */
+        .article-container {
+            height: 385px;
+        }
+
+        .article-container .title {
+            background-image: url(https://ae01.alicdn.com/kf/H79fa78c335624c98a91a177b870973e5X.png);
+            background-repeat: no-repeat;
+            padding-left: 28px;
+            padding-top: 70px;
+            padding-bottom: 40px;
+            background-position: 0 73px;
+        }
+
+        .article-type-cpt {
+            width: 191px;
+            margin-bottom: 1px;
+            margin-right: 1px;
+            height: 84px;
+            float: left;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .article-type-cpt a {
+            position: absolute;
+            height: 100%;
+            cursor: pointer;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .article-type-cpt img {
+            width: 100%;
+            transition: all .5s;
+        }
+
+        .article-type-cpt a:hover img {
+            transform: scale(1.2);
+            filter: blur(2px);
+        }
+
+        .article-type-cpt span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .article-type-cpt .type-bg {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .article-type-cpt .type-title {
+            height: 20px;
+            overflow: hidden;
+            width: 100%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            margin-top: 25px;
+        }
+
+        .article-type-cpt .type-des {
+            font-weight: 100;
+            font-size: 12px;
+            top: 50px;
+            opacity: .8;
+        }
+
+        /* 热门文章 */
+        .article-cpt {
+            width: 100%;
+            height: 216px;
+            background-color: #fff;
+            border: 1px solid #e8e8e8;
+            box-sizing: content-box;
+            margin-bottom: 10px;
+        }
+
+        .article-cpt-noimg .article-info {
+            width: 100%;
+        }
+
+        .article-cpt .article-info {
+            padding: 20px 0;
+            padding-left: 20px;
+            width: 100%;
+            float: left;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .article-cpt .article-info .article-info-box {
+            height: 140px;
+            padding-bottom: 25px;
+            padding-right: 45px;
+            font-weight: 200;
+        }
+
+        .article-cpt .article-info .article-info-box .article-title {
+            font-size: 24px;
+            height: 30px;
+            width: 580px;
+            line-height: 32px;
+            padding-bottom: 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .article-cpt .article-info .article-info-box .article-title a {
+            color: #333;
+        }
+
+        .article-cpt .article-info .article-info-box .article-content {
+            overflow: hidden;
+            height: 85px;
+            font-size: 13px;
+            font-weight: 100;
+            color: #333;
+            line-height: 20px;
+            padding-top: 25px;
+        }
+
+        .article-cpt .article-info .article-info-box .article-content:before {
+            content: '';
+            margin-top: -10px;
+            position: absolute;
+            width: 30px;
+            height: 1px;
+            border-top: 1px solid #333;
+        }
+
+        .view-all {
+            padding-left: 10px;
+            position: relative;
+        }
+
+        .view-all a {
+            color: #78bc85;
+            font-weight: 200;
+        }
+
+        .view-all a img {
+            vertical-align: baseline;
+            width: 5px;
+            padding-left: 3px;
+        }
+
+        .article-cpt .article-info .article-others {
+            font-weight: lighter;
+            color: #999;
+            margin-top: 10px;
+        }
+
+        /* 底部卡片 */
+        .content .free-writing {
+            position: relative;
+            height: 216px;
+            overflow: hidden;
+            top: 57px;
+        }
+
+        .content .free-writing img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 作为顶部导航栏的容器 -->
+    <header class="head">
+        <!-- 实现水平居中效果容器 -->
+        <div class="container">
+            <!-- 显示网页logo -->
+            <div class="logo">
+                <a href="#">
+                    <img
+                        src="https://cdn.jsdelivr.net/gh/blogimg/HexoStaticFile1/imgbed/2020/03/23/20200323195420.png" />
+                </a>
+            </div>
+            <!-- 显示网站菜单 -->
+            <ul class="nav">
+                <li>首页</li>
+                <li class="active">阅读</li>
+                <li>电台</li>
+                <li>碎片</li>
+                <li>客户端</li>
+            </ul>
+            <!-- 登录注册 -->
+            <div class="login-container">
+                <!-- 写作的按钮 -->
+                <div class="write">
+                    <div>
+                        <img src="https://cdn.jsdelivr.net/gh/blogimg/HexoStaticFile1/imgbed/2020/03/23/20200323195459.png"
+                            alt="" />
+                    </div>
+                </div>
+            </div>
+            <button class="login-focus">登录 / 注册</button>
+            <div class="login-dialog">
+                <div class="close-login-box"></div>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        <!-- 顶部轮播图 -->
+        <div class="slide">
+            <input type="radio" name="slides" id="slide1" checked />
+            <input type="radio" name="slides" id="slide2" />
+            <input type="radio" name="slides" id="slide3" />
+            <!-- 图片列表 -->
+            <div class="img-list">
+                <img src="https://ae01.alicdn.com/kf/H0b1eb310ce894aa08f9b4807d1bf3ca4x.jpg" />
+                <img src="https://ae01.alicdn.com/kf/Heaf789203f4147f0b5114a23c618c643K.jpg" />
+                <img class="active" src="https://ae01.alicdn.com/kf/H50df113bb77145aca87f6762a035d358m.jpg" />
+            </div>
+            <!-- 左右切换 -->
+            <div class="change-btn">
+                <label for="slide1"></label>
+                <label for="slide2"></label>
+                <label for="slide3"></label>
+            </div>
+            <!-- 导航器 -->
+            <div class="nav-line">
+                <label for="slide1"></label>
+                <label for="slide2"></label>
+                <label for="slide3"></label>
+            </div>
+        </div>
+        <!-- 分类 -->
+        <div class="article-container">
+            <div class="title">分类 | Classification</div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+            <div class="article-type-cpt">
+                <a href="#">
+                    <img src="https://ae01.alicdn.com/kf/H7928cdd23bae4cf3ad70a1749b82ba7dw.jpg">
+                    <span class="type-bg"></span>
+                    <span class="type-title">读心术</span>
+                    <span class="type-des">Psychology/243篇</span>
+                </a>
+            </div>
+        </div>
+        <!-- 热门文章 -->
+        <div class="article-container">
+            <div class="title">热门文章 | Hot Articles</div>
+            <div class="article-cpt article-cpt-noimg">
+                <div class="article-info">
+                    <div class="article-info-box">
+                        <div class="article-title">
+                            <a href="#" target="_blank">新的一年，你不解决这五件事，就不要奋斗了</a>
+                        </div>
+                        <div class="article-author">
+                            <a href="#" target="_blank">By&nbsp;/&nbsp;陈慕妤</a>
+                        </div>
+                        <div class="article-content">
+                            2018年，已经正式开始。新的一年，应该有新的展望和规划。如果你今年的习惯性行为，与往年一样，没有变化，那你只不过重复了又一年的2017而已，人生依然不会获得高品质的提升。美国作家兰德尔·贾雷尔说过，如果你被置于某种地位的时间足够长久，你的行为，就会开始适应那种地位的要求。这句话可以从两个层面去解读。1
+                            &nbsp;如果你的时间一直停留在去做低价值地位的事情，长此以往，你对自己的要求和所做的事，都要以这种地...
+                            <span class="view-all">
+                                <a href="#" target="_blank">VIEW ALL
+                                    <img src="https://ae01.alicdn.com/kf/H299b8e107b9a48599c409594305fe5efd.png">
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="article-others">26.8 k次阅读&nbsp;&nbsp;|&nbsp;&nbsp;评论:142&nbsp;&nbsp;|&nbsp;&nbsp;喜欢:1.3
+                        k
+                    </div>
+                </div>
+            </div>
+            <div class="article-cpt article-cpt-noimg">
+                <div class="article-info">
+                    <div class="article-info-box">
+                        <div class="article-title">
+                            <a href="#" target="_blank">新的一年，你不解决这五件事，就不要奋斗了</a>
+                        </div>
+                        <div class="article-author">
+                            <a href="#" target="_blank">By&nbsp;/&nbsp;陈慕妤</a>
+                        </div>
+                        <div class="article-content">
+                            2018年，已经正式开始。新的一年，应该有新的展望和规划。如果你今年的习惯性行为，与往年一样，没有变化，那你只不过重复了又一年的2017而已，人生依然不会获得高品质的提升。美国作家兰德尔·贾雷尔说过，如果你被置于某种地位的时间足够长久，你的行为，就会开始适应那种地位的要求。这句话可以从两个层面去解读。1
+                            &nbsp;如果你的时间一直停留在去做低价值地位的事情，长此以往，你对自己的要求和所做的事，都要以这种地...
+                            <span class="view-all">
+                                <a href="#" target="_blank">VIEW ALL
+                                    <img src="https://ae01.alicdn.com/kf/H299b8e107b9a48599c409594305fe5efd.png">
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="article-others">26.8 k次阅读&nbsp;&nbsp;|&nbsp;&nbsp;评论:142&nbsp;&nbsp;|&nbsp;&nbsp;喜欢:1.3
+                        k
+                    </div>
+                </div>
+            </div>
+            <div class="article-cpt article-cpt-noimg">
+                <div class="article-info">
+                    <div class="article-info-box">
+                        <div class="article-title">
+                            <a href="#" target="_blank">新的一年，你不解决这五件事，就不要奋斗了</a>
+                        </div>
+                        <div class="article-author">
+                            <a href="#" target="_blank">By&nbsp;/&nbsp;陈慕妤</a>
+                        </div>
+                        <div class="article-content">
+                            2018年，已经正式开始。新的一年，应该有新的展望和规划。如果你今年的习惯性行为，与往年一样，没有变化，那你只不过重复了又一年的2017而已，人生依然不会获得高品质的提升。美国作家兰德尔·贾雷尔说过，如果你被置于某种地位的时间足够长久，你的行为，就会开始适应那种地位的要求。这句话可以从两个层面去解读。1
+                            &nbsp;如果你的时间一直停留在去做低价值地位的事情，长此以往，你对自己的要求和所做的事，都要以这种地...
+                            <span class="view-all">
+                                <a href="#" target="_blank">VIEW ALL
+                                    <img src="https://ae01.alicdn.com/kf/H299b8e107b9a48599c409594305fe5efd.png">
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="article-others">26.8 k次阅读&nbsp;&nbsp;|&nbsp;&nbsp;评论:142&nbsp;&nbsp;|&nbsp;&nbsp;喜欢:1.3
+                        k
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 底部卡片 -->
+        <div class="free-writing">
+            <a href="#" target="_blank">
+                <img src="https://ae01.alicdn.com/kf/Hfd6822310c0e49c3b36e15d89f4bab044.jpg">
+            </a>
+        </div>
+        <div class="free-writing">
+            <a href="#" target="_blank">
+                <img src="https://ae01.alicdn.com/kf/H7d27b2c23dbd44d2b5b57b83e1587daeC.jpg">
+            </a>
+        </div>
+        <div class="free-writing">
+            <a href="#" target="_blank">
+                <img src="https://ae01.alicdn.com/kf/Hf035c080c8cc4cd49d8445e4887b54c8B.jpg">
+            </a>
+        </div>
+    </div>
+
+    <footer class="foot">
+        <div class="container">
+            <div class="desc">
+                <img src="https://ae01.alicdn.com/kf/H9d15acd757814f12b4226a60f6b9ed02d.png" alt="" />
+                <div class="link">
+                    <p>
+                        <a href="#">关于我</a>
+                        <a href="#">关于我</a>
+                        <a href="#">关于我</a>
+                        <a href="#">关于我</a>
+                    </p>
+                    <p>这是一个文本内容。</p>
+                </div>
+            </div>
+            <div class="icon">
+                <div class="app"></div>
+                <div class="sina"></div>
+                <div class="wechat">
+                    <div class="qr">
+                        <img src="https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@master/pay/wechat.png" alt="" />
+                        <div></div>
+                    </div>
+                </div>
+                <div class="safe"></div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

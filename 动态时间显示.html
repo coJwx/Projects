@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态显示时间</title>
+</head>
+
+<body>
+    <button id="start">开始显示</button>
+    <button id="stop">停止显示</button>
+    <h2 id="showtime"></h2>
+    <script>
+        var startBtn = document.getElementById('start')
+        var stopBtn = document.getElementById('stop')
+        var showtime = document.getElementById('showtime')
+        var t;
+        startBtn.addEventListener('click', function () {
+            // TAG 禁用按钮
+            startBtn.setAttribute('disabled', 'disabled')
+            t = setInterval(function () {
+                // TAG 1. 获取当前时间
+                var date = new Date()
+                var hour = date.getHours()
+                var minute = date.getMinutes()
+                var second = date.getSeconds()
+                // TAG 2. 格式化当前时间
+                var time = hour + ':' + minute + ':' + second
+                // TAG 3. 动态显示
+                showtime.textContent = time
+            })
+        })
+        stopBtn.addEventListener('click', function () {
+            startBtn.removeAttribute('disabled')
+            clearInterval(t)
+        })
+    </script>
+</body>
+
+</html>

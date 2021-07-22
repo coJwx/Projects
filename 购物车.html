@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车案例</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .cart-container {
+            margin: 100px auto;
+            width: 990px;
+        }
+
+        #title {
+            width: 100px;
+            color: #c81623;
+            padding: 10px 0px;
+            margin: 0;
+            border-bottom: 1px solid #c81623;
+        }
+
+        #cart {
+            width: 990px;
+            border: 1px solid #d9d9d9;
+            border-collapse: collapse;
+        }
+
+        #cart th,
+        #cart td {
+            height: 80px;
+            border-bottom: 1px solid #d9d9d9;
+            text-align: center;
+
+        }
+
+        #cart th {
+            background: #d9d9d9;
+        }
+
+        #cart td:nth-of-type(1) {
+            width: 60px;
+            text-align: center;
+        }
+
+        #cart td:nth-of-type(2) {
+            width: 400px;
+        }
+
+        #cart td:nth-of-type(3) {
+            width: 80px;
+            text-align: right;
+        }
+
+        #cart td:nth-of-type(4) {
+            width: 250px;
+            padding: 0 80px;
+        }
+
+        #cart td:nth-of-type(5) {
+            width: 80px;
+            text-align: right;
+        }
+
+        #cart td:nth-of-type(6) {
+            /* width: 80px; */
+            text-align: center;
+        }
+
+        #cart td:nth-of-type(4) button,
+        #cart td:nth-of-type(4) input {
+            display: block;
+            float: left;
+            height: 25px;
+            border: 1px solid #d9d9d9;
+        }
+
+        #cart td:nth-of-type(4) button {
+            width: 20px;
+            background-color: #fff;
+        }
+
+        #cart td:nth-of-type(4) input {
+            padding: 0;
+            border-width: 1px;
+            border-left: none;
+            border-right: none;
+            width: 50px;
+            outline: none;
+            text-align: center;
+        }
+
+        #cart td:nth-of-type(4) input:focus {
+            background-color: #f1f1f1;
+        }
+
+        #cart td a {
+            text-decoration: none;
+            color: #333333;
+        }
+
+        #cart td a:hover {
+            color: #c81623;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cart-container">
+        <!-- 购物车标题+商品数量 -->
+        <h3 id="title">全部商品<span id="number">3</span></h3>
+        <!-- 购物车表格 -->
+        <table id="cart">
+            <tr>
+                <th><input type="checkbox" name="" id="checkall"> 全选</th>
+                <th>商品</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th>操作</th>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="check"></td>
+                <td>【49元1件88元2件118元3件】富贵鸟春季新品长袖格子男 509灰色 XL</td>
+                <td>￥<span name="price">2599.00</span></td>
+                <td>
+                    <button name="minus" disabled>-</button>
+                    <input type="text" name="count" value="1">
+                    <button name="add">+</button>
+                </td>
+                <td>￥<span name="subtotal">2599.00</span></td>
+                <td><a href="#" name="delete">删除</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="check"></td>
+                <td>【49元1件88元2件118元3件】富贵鸟春季新品长袖格子男 509灰色 XL</td>
+                <td>￥<span name="price">2599.00</span></td>
+                <td>
+                    <button name="minus" disabled>-</button>
+                    <input type="text" name="count" value="1">
+                    <button name="add">+</button>
+                </td>
+                <td>￥<span name="subtotal">2599.00</span></td>
+                <td><a href="#" name="delete">删除</a></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="check"></td>
+                <td>【49元1件88元2件118元3件】富贵鸟春季新品长袖格子男 509灰色 XL</td>
+                <td>￥<span name="price">2599.00</span></td>
+                <td>
+                    <button name="minus" disabled>-</button>
+                    <input type="text" name="count" value="1">
+                    <button name="add">+</button>
+                </td>
+                <td>￥<span name="subtotal">2599.00</span></td>
+                <td><a href="#" name="delete">删除</a></td>
+            </tr>
+        </table>
+    </div>
+    <!-- 结算 -->
+    <script>
+        // 获取到购物车中所有加按钮
+        var addButtons = document.getElementsByName('add')
+        var minusButtons = document.getElementsByName('minus')
+        console.log(minusButtons)
+        // 事件的绑定 -> 每次只能绑定一个元素
+
+        for (var i = 0; i < addButtons.length; i++) {
+            var addButton = addButtons[i]
+            // 绑定鼠标事件
+            // 修改数量
+            addButton.onclick = function (event) {
+                console.log('click')
+                /*
+                    通过event对象获取用户点击的是哪个按钮
+                    * 绑定事件的元素 -> 所有的<botton name='add'>+</botton>
+                    * 触发事件的元素 -> 只能有一个
+                */
+                // console.log(event.currentTarget, event.target, this)
+                var targetButton = event.target
+                // 操作与之关联的input元素
+                var inputElement = targetButton.previousSibling.previousSibling
+                // console.log(inputElement)
+                // 获取数量（string类型）
+                var count = Number(inputElement.value)
+                // 计算
+                count += 1
+                // 将值更新到页面
+                inputElement.value = count
+                // 操作与之关联的减按钮
+                var minuButton = inputElement.previousSibling.previousSibling
+                if (count > 1) {
+                    minuButton.removeAttribute('disabled')
+                } else {
+                    minuButton.setAttribute('disabled', 'disabled')
+                }
+                // 更新与之关联的小计
+                // 获取单价
+                var btnTdElement = targetButton.parentNode
+                var priTdElement = btnTdElement.previousSibling.previousSibling
+
+                var priceElement = priTdElement.childNodes[1]
+                var price = parseFloat(priceElement.firstChild.nodeValue)
+                var subtotal = price *= count
+                if (String(subtotal).indexOf('.') === -1) {
+                    subtotal = subtotal + '.00'
+                }
+                var subTdElement = btnTdElement.nextSibling.nextSibling
+                var subtotalElement = subTdElement.childNodes[1]
+                subtotalElement.textContent = subtotal
+                // console.log(price)
+
+                // 复选框
+                var trElement = btnTdElement.parentNode
+                var checkTdElement = trElement.childNodes[1]
+                var checkboxElement = checkTdElement.firstChild
+                checkboxElement.setAttribute('checked', 'checked')
+
+                // 将当前这一行的背景颜色修改 #fff4e8
+                trElement.style.backgroundColor = '#fff4e8'
+            }
+        }
+        for (var i = 0; i < minusButtons.length; i++) {
+            var minusButton = minusButtons[i]
+            minusButton.onclick = function (event) {
+                var targetButton = event.target
+                // 操作与之关联的input元素
+                var inputElement = targetButton.nextSibling.nextSibling
+                console.log(inputElement)
+                // 获取数量（string类型）
+                var count = Number(inputElement.value)
+                // 计算
+                count -= 1
+                // 将值更新到页面
+                inputElement.value = count
+
+
+                // 计算小计
+                var btnTdElement = targetButton.parentNode
+                var priTdElement = btnTdElement.previousSibling.previousSibling
+
+                var priceElement = priTdElement.childNodes[1]
+                var price = parseFloat(priceElement.firstChild.nodeValue)
+                var subtotal = price *= count
+                if (String(subtotal).indexOf('.') === -1) {
+                    subtotal = subtotal + '.00'
+                }
+                var subTdElement = btnTdElement.nextSibling.nextSibling
+                var subtotalElement = subTdElement.childNodes[1]
+                subtotalElement.textContent = subtotal
+                // console.log(price)
+
+                // 操作减按钮
+                if (count <= 1) {
+                    targetButton.setAttribute('disabled', 'disabled')
+                    // 复选框
+                    var trElement = btnTdElement.parentNode
+                    var checkTdElement = trElement.childNodes[1]
+                    var checkboxElement = checkTdElement.firstChild
+                    checkboxElement.removeAttribute('checked')
+                    // 将当前这一行的背景颜色修改 #fff4e8
+                    trElement.style.backgroundColor = 'white'
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>
